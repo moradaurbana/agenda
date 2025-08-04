@@ -1,0 +1,445 @@
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #6c757d;
+    --danger-color: #dc3545;
+    --text-color: #343a40;
+    --light-text-color: #6c757d;
+    --background-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #e9ecef;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.app-header {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 4px var(--shadow-light);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.header-logo {
+    height: 40px;
+    margin-right: 1rem;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.app-main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.app-nav {
+    display: flex;
+    justify-content: center;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px var(--shadow-light);
+    overflow: hidden;
+}
+
+.nav-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--light-text-color);
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #e9ecef;
+}
+
+.nav-button.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.page-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px var(--shadow-light);
+    padding: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--light-text-color);
+}
+
+input, select, textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+    resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* --- CALENDAR STYLES --- */
+.calendar-container {
+    padding: 1rem;
+}
+
+.fc-toolbar-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.fc-toolbar-chunk .fc-button {
+    background-color: transparent !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+    text-transform: none !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem 1rem !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease;
+}
+
+.fc-toolbar-chunk .fc-button:hover {
+    background-color: #f0f0f0 !important;
+}
+
+.fc-daygrid-day-number {
+    font-weight: 500;
+    padding: 0.5rem;
+    color: var(--light-text-color);
+}
+
+.fc-daygrid-day {
+    border-color: var(--border-color);
+    background-color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.fc-daygrid-day:hover {
+    background-color: #f8f9fa;
+}
+
+.fc-day-other .fc-daygrid-day-number {
+    color: #ccc;
+}
+
+.fc-event-main-frame {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
+
+.fc-event-main-frame::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.fc-event {
+    background-color: transparent !important;
+    border: none !important;
+    color: var(--text-color) !important;
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0 !important;
+    margin: 0.2rem 0 !important;
+    border-radius: 0 !important;
+    width: auto;
+}
+
+.fc-event-title {
+    font-weight: 500;
+}
+
+/* Admin Table */
+.filter-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+}
+
+.filter-button:hover {
+    background-color: #0056b3;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+th, td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+td .editar, td .cancelar {
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    color: white;
+    margin-right: 0.25rem;
+}
+
+td .editar {
+    background-color: var(--primary-color);
+}
+td .editar:hover {
+    background-color: #0056b3;
+}
+
+td .cancelar {
+    background-color: var(--danger-color);
+}
+td .cancelar:hover {
+    background-color: #c82333;
+}
+
+/* Modals */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 8px 16px var(--shadow-medium);
+    max-height: 90vh; /* Altura máxima para permitir scroll */
+    overflow-y: auto; /* Adiciona scroll quando o conteúdo excede a altura máxima */
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .app-header {
+        padding: 1rem;
+    }
+    
+    .header-title {
+        font-size: 1.25rem;
+    }
+
+    .app-nav {
+        flex-direction: column;
+    }
+
+    .nav-button {
+        padding: 1rem;
+    }
+
+    .nav-icon {
+        margin-right: 0;
+    }
+
+    .nav-button span {
+        display: none;
+    }
+
+    .nav-button.active span, .nav-button:hover span {
+        display: block;
+    }
+
+    .fc .fc-toolbar .fc-toolbar-title {
+        font-size: 1.25rem;
+    }
+}

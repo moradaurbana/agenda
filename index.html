@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Agendamento - Morada Urbana</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/main.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <img src="logo2024.png" alt="Logo da empresa" class="header-logo"/>
+      <h1 class="header-title">Sistema de Agendamento</h1>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <nav class="app-nav">
+      <button class="nav-button active" data-target="agendamento">
+        <i class="fa-solid fa-calendar-plus nav-icon"></i>
+        <span>Agendamento</span>
+      </button>
+      <button class="nav-button" data-target="admin">
+        <i class="fa-solid fa-user-gear nav-icon"></i>
+        <span>Administração</span>
+      </button>
+    </nav>
+
+    <div id="agendamento" class="page-section">
+      <section class="card form-container">
+        <h2>Agendar Nova Visita</h2>
+        <form id="form-visita" class="form-grid">
+          <div class="input-group">
+            <label for="clienteNome">Nome do Cliente</label>
+            <input id="clienteNome" name="clienteNome" required>
+          </div>
+          <div class="input-group">
+            <label for="clienteEmail">Email do Cliente</label>
+            <input id="clienteEmail" name="clienteEmail" type="email" required>
+          </div>
+          <div class="input-group">
+            <label for="clienteWhatsapp">WhatsApp do Cliente</label>
+            <input id="clienteWhatsapp" name="clienteWhatsapp" required>
+          </div>
+          <div class="input-group">
+            <label for="corretorNome">Nome do Corretor</label>
+            <input id="corretorNome" name="corretorNome" required>
+          </div>
+          <div class="input-group">
+            <label for="corretorEmail">Email do Corretor</label>
+            <input id="corretorEmail" name="corretorEmail" type="email" required>
+          </div>
+          <div class="input-group">
+            <label for="corretorWhatsapp">WhatsApp do Corretor</label>
+            <input id="corretorWhatsapp" name="corretorWhatsapp" required>
+          </div>
+          <div class="input-group full-width">
+            <label for="endereco">Endereço da Visita</label>
+            <input id="endereco" name="endereco" required>
+          </div>
+          <div class="input-group">
+            <label for="dataVisita">Data da Visita</label>
+            <input id="dataVisita" name="dataVisita" type="date" required>
+          </div>
+          <div class="input-group">
+            <label for="horaVisita">Hora da Visita</label>
+            <input id="horaVisita" name="horaVisita" type="time" required>
+          </div>
+          <div class="input-group full-width">
+            <label for="observacao">Observação</label>
+            <textarea id="observacao" name="observacao" rows="3"></textarea>
+          </div>
+          <button type="submit" class="full-width">Agendar Visita</button>
+        </form>
+      </section>
+      
+      <section class="card calendar-container">
+        <h2>Calendário de Visitas</h2>
+        <div id="calendario"></div>
+      </section>
+    </div>
+
+    <div id="admin" class="page-section hidden">
+      <section class="card">
+        <div class="filter-container">
+          <div class="filter-group">
+            <label for="filtroData">Data</label>
+            <input type="date" id="filtroData" />
+          </div>
+          <div class="filter-group">
+            <label for="filtroCorretor">Corretor</label>
+            <input type="text" id="filtroCorretor" placeholder="Nome do corretor"/>
+          </div>
+          <div class="filter-group">
+            <label for="filtroStatus">Status</label>
+            <select id="filtroStatus">
+              <option value="">Todos</option>
+              <option value="agendada">Agendada</option>
+              <option value="pendente">Pendente</option>
+              <option value="confirmada">Confirmada</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+          </div>
+          <button class="filter-button" onclick="carregarVisitas()">Filtrar</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="table-responsive">
+          <table id="tabela-visitas">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Cliente</th>
+                <th>Corretor</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="modal-editar" class="modal hidden">
+    <div class="modal-content">
+      <h2 class="modal-title">Editar Visita</h2>
+      <form id="form-editar">
+        <input type="hidden" id="editarId" name="id" />
+        <div class="form-grid">
+            <div class="input-group">
+                <label for="editarClienteNome">Nome do Cliente</label>
+                <input id="editarClienteNome" name="clienteNome" required>
+            </div>
+            <div class="input-group">
+                <label for="editarClienteEmail">Email do Cliente</label>
+                <input id="editarClienteEmail" name="clienteEmail" type="email" required>
+            </div>
+            <div class="input-group">
+                <label for="editarClienteWhatsapp">WhatsApp do Cliente</label>
+                <input id="editarClienteWhatsapp" name="clienteWhatsapp" required>
+            </div>
+            <div class="input-group">
+                <label for="editarCorretorNome">Nome do Corretor</label>
+                <input id="editarCorretorNome" name="corretorNome" required>
+            </div>
+            <div class="input-group">
+                <label for="editarCorretorEmail">Email do Corretor</label>
+                <input id="editarCorretorEmail" name="corretorEmail" type="email" required>
+            </div>
+            <div class="input-group">
+                <label for="editarCorretorWhatsapp">WhatsApp do Corretor</label>
+                <input id="editarCorretorWhatsapp" name="corretorWhatsapp" required>
+            </div>
+            <div class="input-group full-width">
+                <label for="editarEndereco">Endereço da Visita</label>
+                <input id="editarEndereco" name="endereco" required>
+            </div>
+            <div class="input-group">
+                <label for="editarData">Data da Visita</label>
+                <input id="editarData" name="dataVisita" type="date" required>
+            </div>
+            <div class="input-group">
+                <label for="editarHora">Hora da Visita</label>
+                <input id="editarHora" name="horaVisita" type="time" required>
+            </div>
+            <div class="input-group full-width">
+                <label for="editarObservacao">Observação</label>
+                <textarea id="editarObservacao" name="observacao" rows="3"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="editarStatus">Status</label>
+                <select id="editarStatus" name="status">
+                    <option value="agendada">Agendada</option>
+                    <option value="pendente">Pendente</option>
+                    <option value="confirmada">Confirmada</option>
+                    <option value="cancelada">Cancelada</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" onclick="fecharModal()" class="btn-secondary">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-detalhes" class="modal hidden" onclick="fecharModalDetalhes()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div id="detalhes-evento"></div>
+      <div class="modal-actions">
+        <button type="button" onclick="fecharModalDetalhes()" class="btn-secondary">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
